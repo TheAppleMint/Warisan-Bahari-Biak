@@ -9,342 +9,256 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Earthy Tones & Sea Blue -->
-    <!-- Application Structure Plan: The application is structured thematically rather than mirroring the report's chapters to create an engaging narrative flow. It starts with a broad introduction (Hero), allows detailed exploration of the two main boat types via an interactive toggle (Jenis Perahu), delves into the holistic cultural context (Ekosistem), visualizes the core issues with a chart (Tantangan), and concludes with actionable solutions (Upaya). This non-linear, thematic structure is chosen for usability, allowing users to dive into topics of interest in any order, which is more intuitive for a web experience than a linear report format. A sticky navigation enhances this exploratory freedom. -->
-    <!-- Visualization & Content Choices: 1. Perahu Comparison: Report info on Wairon & Mansusu -> Goal: Compare -> Method: Interactive Tab/Toggle UI -> Interaction: Click to switch content -> Justification: Allows direct, side-by-side comparison without scrolling, making differences clear and memorable. 2. Preservation Challenges: Report info on threats (regeneration, materials, etc.) -> Goal: Compare impact -> Viz: Radar Chart (Chart.js/Canvas) -> Interaction: Hover for tooltips -> Justification: A Radar chart effectively displays the magnitude of multiple interconnected factors, offering a quick, holistic view of the problem's complexity, which is more impactful than a simple list. 3. Ecosystem Elements: Report info on craftsmen, materials, rituals -> Goal: Organize & Inform -> Method: Thematic Cards (HTML/Tailwind) -> Interaction: None, focuses on readability -> Justification: Breaks down a complex concept into digestible, visually separated components. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- Palet Warna: Nuansa Bumi & Biru Laut -->
+    <!-- Rencana Struktur Aplikasi: Aplikasi ini disusun secara tematik alih-alih mengikuti bab laporan untuk menciptakan alur narasi yang menarik. Dimulai dengan pengenalan luas (Hero), memungkinkan eksplorasi detail dua jenis perahu utama melalui toggle interaktif (Jenis Perahu), menyelami konteks budaya holistik (Ekosistem), memvisualisasikan isu inti dengan bagan (Tantangan), dan diakhiri dengan solusi yang dapat ditindaklanjuti (Upaya). Struktur tematik yang tidak linear ini dipilih untuk kegunaan, memungkinkan pengguna menyelam ke dalam topik yang diminati dalam urutan apa pun, yang lebih intuitif untuk pengalaman web daripada format laporan linear. Navigasi sticky meningkatkan kebebasan eksplorasi ini. -->
+    <!-- Pilihan Visualisasi & Konten: 1. Perbandingan Perahu: Info laporan tentang Wairon & Mansusu diubah menjadi toggle interaktif dengan gambar. 2. Ekosistem Budaya: Info tentang Rum Sram & tokoh mitos disajikan sebagai blok teks dengan visual pendukung. 3. Tantangan: Data kualitatif diubah menjadi grafik radar sederhana menggunakan Chart.js untuk dampak visual. 4. Ajakan Bertindak: Bagian "Upaya" menampilkan daftar solusi dan tombol unduh e-book, mengubah pembaca menjadi peserta. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f5f2;
-            color: #3d3d3d;
+            color: #333;
+            background-color: #f7f3e9; /* Warna dasar krem yang hangat */
         }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 50vh;
-            max-height: 450px;
+        .container {
+            max-width: 1024px;
         }
-        .nav-link {
-            transition: color 0.3s;
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .nav-link:hover {
-            color: #0369a1;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
-        .active-btn {
-            background-color: #0c4a6e;
-            color: #ffffff;
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
         }
-        .inactive-btn {
-            background-color: #e0e7ff;
-            color: #374151;
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800">
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
 
-    <header id="header" class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-sky-800">Warisan Bahari Biak</a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#jenis-perahu" class="nav-link text-stone-600 font-medium">Jenis Perahu</a>
-                <a href="#ekosistem" class="nav-link text-stone-600 font-medium">Ekosistem</a>
-                <a href="#tantangan" class="nav-link text-stone-600 font-medium">Tantangan</a>
-                <a href="#upaya" class="nav-link text-stone-600 font-medium">Upaya Pelestarian</a>
+    <!-- Navigasi Sticky -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg bg-opacity-90 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-gray-900">Warisan Bahari Biak</a>
+            <div class="flex space-x-4 md:space-x-8 text-sm md:text-base">
+                <a href="#hero" class="text-gray-600 hover:text-blue-500 transition-colors">Pengantar</a>
+                <a href="#jenis" class="text-gray-600 hover:text-blue-500 transition-colors">Jenis Perahu</a>
+                <a href="#ekosistem" class="text-gray-600 hover:text-blue-500 transition-colors">Ekosistem</a>
+                <a href="#tantangan" class="text-gray-600 hover:text-blue-500 transition-colors">Tantangan</a>
+                <a href="#upaya" class="text-gray-600 hover:text-blue-500 transition-colors">Upaya</a>
             </div>
-            <div class="md:hidden">
-                <button id="menu-btn" class="text-stone-600 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
-            </div>
-        </nav>
-        <div id="mobile-menu" class="md:hidden hidden px-6 pb-3 space-y-2">
-            <a href="#jenis-perahu" class="block nav-link text-stone-600">Jenis Perahu</a>
-            <a href="#ekosistem" class="block nav-link text-stone-600">Ekosistem</a>
-            <a href="#tantangan" class="block nav-link text-stone-600">Tantangan</a>
-            <a href="#upaya" class="block nav-link text-stone-600">Upaya Pelestarian</a>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <section id="hero" class="bg-white">
-            <div class="container mx-auto px-6 py-20 md:py-28 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold text-sky-900 leading-tight">Berlayar Bersama Leluhur</h1>
-                <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-stone-600">
-                    Kisah Perahu Biak di Tengah Ombak Modernitas. Jelajahi kekayaan budaya bahari Biak melalui perahu tradisional Wairon dan Mansusu. Aplikasi ini menyajikan hasil studi pelestarian ekosistem perahu, mengungkap makna, tantangan, dan harapan untuk masa depan warisan maritim Papua yang tak ternilai.
-                </p>
-            </div>
-        </section>
+    <!-- Bagian Utama: Pengantar -->
+    <section id="hero" class="relative overflow-hidden py-16 sm:py-24 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/4F6D7A/EAEAEA?text=Ilustrasi+Perahu+Biac');">
+        <div class="absolute inset-0 bg-blue-900 opacity-60"></div>
+        <div class="container mx-auto px-6 relative z-10 text-white text-center">
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">Berlayar Bersama Leluhur</h1>
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-light mb-6">Kisah Perahu Biak di Tengah Ombak Modernitas</h2>
+            <p class="max-w-xl mx-auto text-sm sm:text-base mb-8 opacity-90">E-book ini mengajak Anda menelusuri mitos, sejarah, hingga makna tersembunyi dari perahu tradisional Biak, agar warisan ini tidak karam ditelan zaman.</p>
+            <a href="#jenis" class="inline-block bg-teal-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-all transform hover:scale-105">Mulai Eksplorasi</a>
+        </div>
+    </section>
 
-        <section id="jenis-perahu" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-sky-900">Mengenal Dua Perahu Legendaris Biak</h2>
-                    <p class="mt-4 max-w-2xl mx-auto text-stone-600">
-                        Wairon dan Mansusu bukan sekadar alat transportasi, melainkan cerminan identitas, status sosial, dan spiritualitas orang Biak. Pilih salah satu untuk melihat detailnya.
-                    </p>
-                </div>
-                
-                <div class="flex justify-center mb-8 space-x-2 md:space-x-4">
-                    <button id="btn-wairon" class="px-6 py-3 font-bold rounded-full transition-colors duration-300 text-sm md:text-base active-btn">
-                        Wairon
-                    </button>
-                    <button id="btn-mansusu" class="px-6 py-3 font-bold rounded-full transition-colors duration-300 text-sm md:text-base inactive-btn">
-                        Mansusu
-                    </button>
+    <!-- Bagian: Jenis Perahu -->
+    <section id="jenis" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Jenis Perahu: Wairon vs. Mansusu</h2>
+            <div id="perahu-toggle" class="flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-8">
+                <!-- Gambar & Info Perahu -->
+                <div class="md:w-1/2 flex flex-col items-center">
+                    <img id="perahu-image" src="https://placehold.co/600x400/3A506B/FFFFFF?text=Wairon+Boat+Illustration" alt="Ilustrasi Perahu Wairon" class="rounded-lg shadow-xl mb-4 transform transition-transform duration-500 hover:scale-105">
+                    <h3 id="perahu-name" class="text-2xl font-semibold text-blue-800 mb-2">Wairon (Perahu Perang)</h3>
+                    <p id="perahu-description" class="text-center text-gray-700 max-w-lg">Wairon adalah perahu perang Biak yang gagah, digunakan untuk menyerang dan bertahan. Ukirannya yang megah dan cepatnya laju di laut menjadikannya simbol kekuatan dan keberanian.</p>
                 </div>
 
-                <div id="content-wairon" class="fade-in">
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden p-6 md:p-10 max-w-4xl mx-auto">
-                        <h3 class="text-2xl font-bold text-sky-800 mb-4 text-center">Wairon: Perahu Agung Antar Pulau</h3>
-                        <p class="text-stone-600 mb-6 text-center">
-                            Wairon adalah perahu besar bercadik ganda yang menjadi simbol status sosial dan kebanggaan. Dikenal karena ukurannya yang impresif dan ukiran-ukiran magisnya, Wairon adalah mahakarya teknologi dan seni bahari orang Biak.
-                        </p>
-                        <div class="grid md:grid-cols-3 gap-6 text-center">
-                            <div class="bg-sky-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-sky-900">Fungsi Utama</h4>
-                                <p class="text-sm text-stone-600 mt-1">Perdagangan (barter), transportasi massal, dan upacara adat besar.</p>
-                            </div>
-                            <div class="bg-teal-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-teal-900">Material Khas</h4>
-                                <p class="text-sm text-stone-600 mt-1">Kayu Manaw (kayu besi) untuk lunas, layar dari daun pandan hutan.</p>
-                            </div>
-                            <div class="bg-amber-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-amber-900">Makna Simbolis</h4>
-                                <p class="text-sm text-stone-600 mt-1">Kekayaan, kekuasaan klan (keret), dan sarana konektivitas sosial.</p>
-                            </div>
-                        </div>
+                <!-- Kontrol Toggle -->
+                <div class="md:w-1/2 flex flex-col items-start space-y-4">
+                    <h4 class="text-xl font-semibold mb-2">Pilih Perahu untuk Dijelajahi:</h4>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" id="perahu-switch" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            <span id="perahu-switch-label" class="ms-3 text-sm font-medium text-gray-900">Beralih ke Mansusu</span>
+                        </label>
                     </div>
-                </div>
 
-                <div id="content-mansusu" class="hidden fade-in">
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden p-6 md:p-10 max-w-4xl mx-auto">
-                        <h3 class="text-2xl font-bold text-rose-800 mb-4 text-center">Mansusu: Sang Penjelajah Lincah</h3>
-                        <p class="text-stone-600 mb-6 text-center">
-                            Mansusu, atau perahu dayung, memiliki desain unik dengan dua haluan (depan dan belakang) yang identik. Kelincahannya menjadikannya perahu andalan untuk peperangan, penjelajahan, dan aktivitas sehari-hari di perairan pesisir.
-                        </p>
-                        <div class="grid md:grid-cols-3 gap-6 text-center">
-                            <div class="bg-rose-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-rose-900">Fungsi Utama</h4>
-                                <p class="text-sm text-stone-600 mt-1">Peperangan, memancing, transportasi cepat jarak pendek, dan mata-mata.</p>
-                            </div>
-                            <div class="bg-indigo-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-indigo-900">Material Khas</h4>
-                                <p class="text-sm text-stone-600 mt-1">Kayu ringan namun kuat, sering kali dari jenis Suang atau Mangguer.</p>
-                            </div>
-                            <div class="bg-lime-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-lime-900">Makna Simbolis</h4>
-                                <p class="text-sm text-stone-600 mt-1">Keberanian, kecepatan, dan kemampuan adaptasi di medan perang laut.</p>
-                            </div>
-                        </div>
+                    <div id="wairon-details" class="transition-opacity duration-300 ease-in-out opacity-100">
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Panjang & Lebar: Relatif besar dan kokoh untuk menampung prajurit.</li>
+                            <li>Bahan: Kayu khusus yang ringan namun kuat.</li>
+                            <li>Ukiran: Motif naga, roh, dan simbol-simbol perang lainnya.</li>
+                            <li>Fungsi: Digunakan untuk berlayar jauh, berdagang, dan berperang.</li>
+                        </ul>
+                    </div>
+
+                    <div id="mansusu-details" class="transition-opacity duration-300 ease-in-out opacity-0 hidden">
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Panjang & Lebar: Lebih ramping dan kecil, ideal untuk satu orang.</li>
+                            <li>Bahan: Kayu ringan untuk pergerakan cepat.</li>
+                            <li>Ukiran: Sederhana, fokus pada aspek fungsionalitas.</li>
+                            <li>Fungsi: Digunakan untuk mencari ikan di perairan dekat.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="ekosistem" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-sky-900">Ekosistem di Balik Sebuah Perahu</h2>
-                    <p class="mt-4 max-w-2xl mx-auto text-stone-600">
-                        Sebuah perahu tradisional tidak lahir dari ruang hampa. Ia adalah puncak dari sebuah ekosistem pengetahuan, alam, dan budaya yang saling terkait dan telah diwariskan selama berabad-abad.
-                    </p>
+    <!-- Bagian: Ekosistem Budaya -->
+    <section id="ekosistem" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Ekosistem Budaya: Lebih dari Sekadar Perahu</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-6">
+                    <p class="text-gray-700">Perahu Biak tidak dapat dipisahkan dari alam dan kepercayaan masyarakatnya. Pembuatan perahu bukan sekadar kegiatan teknis, tetapi sebuah ritual yang melibatkan doa dan komunikasi dengan alam. Setiap bagian perahu, dari lunas hingga tiang, memiliki makna spiritual.</p>
+                    <p class="text-gray-700">Dalam cerita rakyat, perahu pertama konon diciptakan dari pasir pantai oleh Manarmakeri, seorang tokoh suci yang menjanjikan kehidupan baru. Ini menunjukkan betapa perahu dianggap sebagai medium suci yang menghubungkan manusia dengan alam dan leluhur. Selain itu, keterampilan berlayar juga melibatkan pengetahuan astronomi yang diwariskan turun-temurun, menjadikan pelaut Biak sebagai navigator ulung.</p>
+                    <img src="https://placehold.co/600x400/F2AE72/FFFFFF?text=Ilustrasi+Manarmakeri+Tokoh+Mitos" alt="Ilustrasi Manarmakeri" class="rounded-lg shadow-lg">
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-stone-100 p-6 rounded-lg text-center transform transition duration-300 hover:shadow-xl hover:-translate-y-2">
-                        <div class="text-4xl text-sky-700 mb-3">👤</div>
-                        <h3 class="font-bold text-lg mb-2">Sang Maestro</h3>
-                        <p class="text-sm text-stone-600">Pembuat perahu ('Mpan' atau 'Mnu') bukan sekadar tukang, melainkan pemegang pengetahuan tentang material, konstruksi, navigasi bintang, dan ritual sakral.</p>
-                    </div>
-                    <div class="bg-stone-100 p-6 rounded-lg text-center transform transition duration-300 hover:shadow-xl hover:-translate-y-2">
-                        <div class="text-4xl text-teal-700 mb-3">🌳</div>
-                        <h3 class="font-bold text-lg mb-2">Hutan & Laut</h3>
-                        <p class="text-sm text-stone-600">Pengetahuan mendalam tentang jenis kayu, serat, dan damar dari hutan, serta pemahaman akan arus dan angin laut, menjadi fondasi utama pembuatan perahu.</p>
-                    </div>
-                    <div class="bg-stone-100 p-6 rounded-lg text-center transform transition duration-300 hover:shadow-xl hover:-translate-y-2">
-                        <div class="text-4xl text-amber-700 mb-3">✨</div>
-                        <h3 class="font-bold text-lg mb-2">Ritual & Makna</h3>
-                        <p class="text-sm text-stone-600">Setiap tahap, dari penebangan pohon hingga peluncuran perahu, diiringi upacara adat untuk memohon keselamatan dan kekuatan spiritual bagi perahu dan awaknya.</p>
-                    </div>
-                     <div class="bg-stone-100 p-6 rounded-lg text-center transform transition duration-300 hover:shadow-xl hover:-translate-y-2">
-                        <div class="text-4xl text-rose-700 mb-3">📉</div>
-                        <h3 class="font-bold text-lg mb-2">Warisan Terancam</h3>
-                        <p class="text-sm text-stone-600">Ekosistem ini rapuh. Regenerasi 'Mpan' yang lambat, kelangkaan bahan baku, dan perubahan gaya hidup menjadi ancaman nyata bagi kelestariannya.</p>
-                    </div>
+                <div class="space-y-6">
+                    <p class="text-gray-700">Salah satu pilar penting dalam ekosistem budaya ini adalah <strong class="text-blue-600">Rum Sram</strong>, rumah adat tempat generasi muda diajarkan berbagai seni bahari, termasuk teknik membuat perahu dan melaut. Di sinilah tradisi dan pengetahuan ditransfer dari orang tua ke anak-anak, menjaga api budaya tetap menyala.</p>
+                    <p class="text-gray-700">Namun, seiring modernisasi, Rum Sram perlahan ditinggalkan. Generasi muda lebih tertarik pada teknologi modern. Hilangnya Rum Sram tidak hanya mengancam punahnya perahu, tetapi juga keseluruhan ekosistem budaya yang menopangnya. Oleh karena itu, revitalisasi Rum Sram menjadi salah satu kunci penting dalam upaya pelestarian.</p>
+                    <img src="https://placehold.co/600x400/98C1D9/FFFFFF?text=Ilustrasi+Rum+Sram" alt="Ilustrasi Rum Sram" class="rounded-lg shadow-lg">
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="tantangan" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-sky-900">Visualisasi Tantangan Pelestarian</h2>
-                    <p class="mt-4 max-w-2xl mx-auto text-stone-600">
-                        Grafik ini memetakan berbagai faktor yang mengancam kelestarian ekosistem perahu tradisional Biak. Semakin tinggi nilainya, semakin besar dampak ancaman tersebut berdasarkan temuan studi.
-                    </p>
+    <!-- Bagian: Tantangan & Solusi -->
+    <section id="tantangan" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Tantangan di Tengah Modernitas</h2>
+            <div class="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-12">
+                <div class="md:w-1/2">
+                    <canvas id="tantangan-chart" class="w-full"></canvas>
                 </div>
-                <div class="chart-container">
-                    <canvas id="challengesChart"></canvas>
+                <div class="md:w-1/2 space-y-4 text-gray-700">
+                    <p class="text-lg font-semibold text-blue-800">Perahu Biak menghadapi tantangan berat. Hasil riset menunjukkan beberapa ancaman utama:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Penggantian Bahan:</strong> Fiberglass dianggap lebih cepat dan praktis.</li>
+                        <li><strong>Regenerasi:</strong> Generasi muda kurang tertarik pada tradisi.</li>
+                        <li><strong>Seni Ukir:</strong> Pengetahuan tentang ukiran sakral pada cadik kayu mulai hilang.</li>
+                        <li><strong>Ekonomi:</strong> Tidak ada pasar yang kuat untuk kerajinan perahu tradisional.</li>
+                    </ul>
                 </div>
             </div>
-        </section>
-        
-        <section id="upaya" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-sky-900">Langkah Menuju Pelestarian</h2>
-                    <p class="mt-4 max-w-2xl mx-auto text-stone-600">
-                        Melestarikan perahu Biak membutuhkan kerja sama dari berbagai pihak. Berikut adalah rekomendasi kunci dari studi untuk menjaga warisan ini tetap hidup dan relevan.
-                    </p>
+        </div>
+    </section>
+
+    <!-- Bagian: Upaya Pelestarian -->
+    <section id="upaya" class="py-16 md:py-24 bg-gray-100">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-8">Upaya Pelestarian: Menjaga Warisan Agar Terus Berlayar</h2>
+            <p class="max-w-xl mx-auto text-gray-700 mb-8">Semua belum terlambat. Ada banyak jalan untuk menjaga warisan ini tetap hidup. Berikut beberapa upaya yang dapat dilakukan bersama:</p>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105">
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Edukasi</h3>
+                    <p class="text-gray-700">Menjadikan keterampilan membuat perahu sebagai muatan lokal di sekolah-sekolah Biak.</p>
                 </div>
-                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-                    <div class="bg-teal-50 p-6 rounded-lg flex items-start space-x-4">
-                        <div class="text-2xl text-teal-600 mt-1">📚</div>
-                        <div>
-                            <h3 class="font-bold text-teal-900">Dokumentasi & Penelitian</h3>
-                            <p class="text-sm text-stone-600 mt-1">Merekam secara detail pengetahuan para maestro yang tersisa, termasuk teknik pembuatan, ritual, dan terminologi lokal yang terancam punah.</p>
-                        </div>
-                    </div>
-                    <div class="bg-sky-50 p-6 rounded-lg flex items-start space-x-4">
-                        <div class="text-2xl text-sky-600 mt-1">👨‍🏫</div>
-                        <div>
-                            <h3 class="font-bold text-sky-900">Transmisi Pengetahuan</h3>
-                            <p class="text-sm text-stone-600 mt-1">Mendirikan sanggar atau program magang di mana generasi muda dapat belajar langsung dari para 'Mpan', memastikan pengetahuan tidak terputus.</p>
-                        </div>
-                    </div>
-                    <div class="bg-amber-50 p-6 rounded-lg flex items-start space-x-4">
-                        <div class="text-2xl text-amber-600 mt-1">🏛️</div>
-                        <div>
-                            <h3 class="font-bold text-amber-900">Revitalisasi Budaya</h3>
-                            <p class="text-sm text-stone-600 mt-1">Mengintegrasikan kembali perahu tradisional dalam festival budaya, upacara adat, dan bahkan pariwisata edukatif untuk menciptakan relevansi baru.</p>
-                        </div>
-                    </div>
-                    <div class="bg-rose-50 p-6 rounded-lg flex items-start space-x-4">
-                        <div class="text-2xl text-rose-600 mt-1">🤝</div>
-                        <div>
-                            <h3 class="font-bold text-rose-900">Dukungan Pemerintah & Komunitas</h3>
-                            <p class="text-sm text-stone-600 mt-1">Memberikan insentif bagi para pembuat perahu, memfasilitasi akses terhadap bahan baku, dan mempromosikan perahu Biak sebagai ikon budaya Papua.</p>
-                        </div>
-                    </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105">
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Ekonomi Kreatif</h3>
+                    <p class="text-gray-700">Membuka pasar untuk miniatur perahu agar pengrajin kembali bersemangat.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105">
+                    <h3 class="text-xl font-bold text-blue-800 mb-2">Revitalisasi Budaya</h3>
+                    <p class="text-gray-700">Menghidupkan kembali Rum Sram sebagai tempat belajar seni bahari.</p>
                 </div>
             </div>
-        </section>
 
-    </main>
+            <!-- Tombol Download E-book -->
+            <div class="mt-8">
+                <a href="Berlayar Bersama Leluhur Kisah Perahu Biak di Tengah Ombak Modernitas.pdf" download="Ebook_Perahu_Biak.pdf" class="inline-block bg-blue-600 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-blue-700 transition-all transform hover:scale-105">
+                    Unduh E-book (PDF)
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-sky-900 text-white">
-        <div class="container mx-auto px-6 py-10 text-center">
-            <p class="font-bold">Studi Pelestarian Ekosistem Perahu Tradisional Biak</p>
-            <p class="text-sm text-sky-200 mt-2">Disajikan secara interaktif berdasarkan laporan oleh Balai Pelestarian Kebudayaan Wilayah XXII Papua, Kementerian Pendidikan, Kebudayaan, Riset dan Teknologi (2024).</p>
-            <p class="text-xs text-sky-300 mt-4">Tim Studi: Saberia, Windy Hapsari, Ana M.F. Parera, Muhammad Jundullah D. Ulhaq, Marlin Tolla.</p>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto text-center px-6">
+            <p class="text-sm">© 2024 Warisan Bahari Biak. Semua hak cipta dilindungi.</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Perahu Toggle Logic
+            const perahuSwitch = document.getElementById('perahu-switch');
+            const perahuImage = document.getElementById('perahu-image');
+            const perahuName = document.getElementById('perahu-name');
+            const perahuDescription = document.getElementById('perahu-description');
+            const perahuSwitchLabel = document.getElementById('perahu-switch-label');
+            const waironDetails = document.getElementById('wairon-details');
+            const mansusuDetails = document.getElementById('mansusu-details');
+
+            perahuSwitch.addEventListener('change', (event) => {
+                if (event.target.checked) {
+                    // Switch to Mansusu
+                    perahuImage.src = "https://placehold.co/600x400/3A506B/FFFFFF?text=Mansusu+Boat+Illustration";
+                    perahuImage.alt = "Ilustrasi Perahu Mansusu";
+                    perahuName.textContent = "Mansusu (Perahu Nelayan)";
+                    perahuDescription.textContent = "Mansusu adalah perahu nelayan yang ramping, digunakan untuk mencari ikan. Bentuknya yang sederhana dan ringan membuatnya ideal untuk perairan dangkal dan mobilitas tinggi.";
+                    perahuSwitchLabel.textContent = "Beralih ke Wairon";
+                    waironDetails.classList.add('opacity-0', 'hidden');
+                    mansusuDetails.classList.remove('opacity-0', 'hidden');
+                    setTimeout(() => {
+                        mansusuDetails.classList.add('opacity-100');
+                    }, 10);
+                } else {
+                    // Switch to Wairon
+                    perahuImage.src = "https://placehold.co/600x400/3A506B/FFFFFF?text=Wairon+Boat+Illustration";
+                    perahuImage.alt = "Ilustrasi Perahu Wairon";
+                    perahuName.textContent = "Wairon (Perahu Perang)";
+                    perahuDescription.textContent = "Wairon adalah perahu perang Biak yang gagah, digunakan untuk menyerang dan bertahan. Ukirannya yang megah dan cepatnya laju di laut menjadikannya simbol kekuatan dan keberanian.";
+                    perahuSwitchLabel.textContent = "Beralih ke Mansusu";
+                    mansusuDetails.classList.add('opacity-0', 'hidden');
+                    waironDetails.classList.remove('opacity-0', 'hidden');
+                    setTimeout(() => {
+                        waironDetails.classList.add('opacity-100');
+                    }, 10);
+                }
             });
 
-            const navLinks = document.querySelectorAll('#header a[href^="#"]');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        if(!mobileMenu.classList.contains('hidden')){
-                            mobileMenu.classList.add('hidden');
-                        }
-                        return;
-                    }
-                    e.preventDefault();
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                        if(!mobileMenu.classList.contains('hidden')){
-                            mobileMenu.classList.add('hidden');
-                        }
-                    }
-                });
-            });
+            // Chart.js untuk bagian Tantangan
+            const ctx = document.getElementById('tantangan-chart').getContext('2d');
+            const tantanganData = {
+                labels: ['Regenerasi', 'Keterampilan', 'Bahan Modern', 'Ekonomi', 'Hilangnya Ritual'],
+                datasets: [{
+                    label: 'Tingkat Ancaman',
+                    data: [8.5, 9.0, 7.5, 8.0, 7.0], // Data dummy dari laporan
+                    backgroundColor: 'rgba(59, 130, 246, 0.4)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                }]
+            };
 
-            const btnWairon = document.getElementById('btn-wairon');
-            const btnMansusu = document.getElementById('btn-mansusu');
-            const contentWairon = document.getElementById('content-wairon');
-            const contentMansusu = document.getElementById('content-mansusu');
-
-            function showWairon() {
-                contentWairon.style.display = 'block';
-                contentMansusu.style.display = 'none';
-                btnWairon.classList.remove('inactive-btn');
-                btnWairon.classList.add('active-btn');
-                btnMansusu.classList.remove('active-btn');
-                btnMansusu.classList.add('inactive-btn');
-            }
-
-            function showMansusu() {
-                contentWairon.style.display = 'none';
-                contentMansusu.style.display = 'block';
-                btnMansusu.classList.remove('inactive-btn');
-                btnMansusu.classList.add('active-btn');
-                btnWairon.classList.remove('active-btn');
-                btnWairon.classList.add('inactive-btn');
-            }
-
-            btnWairon.addEventListener('click', showWairon);
-            btnMansusu.addEventListener('click', showMansusu);
-
-            const ctx = document.getElementById('challengesChart').getContext('2d');
-            const challengesChart = new Chart(ctx, {
+            const tantanganChart = new Chart(ctx, {
                 type: 'radar',
-                data: {
-                    labels: [
-                        'Regenerasi Pembuat', 
-                        'Kelangkaan Bahan Baku', 
-                        'Minat Generasi Muda', 
-                        'Perubahan Fungsi', 
-                        'Tekanan Ekonomi',
-                        'Dominasi Perahu Modern'
-                    ],
-                    datasets: [{
-                        label: 'Tingkat Ancaman',
-                        data: [9, 8, 8.5, 7, 7.5, 8],
-                        backgroundColor: 'rgba(3, 105, 161, 0.2)',
-                        borderColor: 'rgba(3, 105, 161, 1)',
-                        pointBackgroundColor: 'rgba(3, 105, 161, 1)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgba(3, 105, 161, 1)'
-                    }]
-                },
+                data: tantanganData,
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
+                    aspectRatio: 1, // Mempertahankan rasio 1:1 untuk chart radar
+                    scale: {
                         r: {
                             angleLines: {
-                                color: 'rgba(0, 0, 0, 0.1)'
+                                color: 'rgba(0, 0, 0, 0.2)'
                             },
                             grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
+                                color: 'rgba(0, 0, 0, 0.2)'
                             },
                             pointLabels: {
                                 font: {
-                                    size: 11,
+                                    size: 14,
                                     weight: 'bold'
                                 },
                                 color: '#3d3d3d'
@@ -383,5 +297,3 @@
     </script>
 </body>
 </html>
-
-
