@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Palet Warna: Nuansa Bumi & Biru Laut -->
-    <!-- Rencana Struktur Aplikasi: Aplikasi ini disusun secara tematik alih-alih mengikuti bab laporan untuk menciptakan alur narasi yang menarik. Dimulai dengan pengenalan luas (Hero), memungkinkan eksplorasi detail dua jenis perahu utama melalui toggle interaktif (Jenis Perahu), menyelami konteks budaya holistik (Ekosistem), memvisualisasikan isu inti dengan bagan (Tantangan), dan diakhiri dengan solusi yang dapat ditindaklanjuti (Upaya). Struktur tematik yang tidak linear ini dipilih untuk kegunaan, memungkinkan pengguna menyelam ke dalam topik yang diminati dalam urutan apa pun, yang lebih intuitif untuk pengalaman web daripada format laporan linear. Navigasi sticky meningkatkan kebebasan eksplorasi ini. -->
+    <!-- Rencana Struktur Aplikasi: Aplikasi ini disusun secara tematik alih-alih mengikuti bab laporan untuk menciptakan alur narasi yang menarik. Dimulai dengan pengenalan luas (Hero), memungkinkan eksplorasi detail dua jenis perahu utama melalui toggle interaktif (Jenis Perahu), menyelami konteks budaya holistik (Ekosistem), memvisualisasikan isu inti dengan bagan (Tantangan), dan diakhiri dengan solusi yang dapat ditindaklanjutkan (Upaya). Struktur tematik yang tidak linear ini dipilih untuk kegunaan, memungkinkan pengguna menyelam ke dalam topik yang diminati dalam urutan apa pun, yang lebih intuitif untuk pengalaman web daripada format laporan linear. Navigasi sticky meningkatkan kebebasan eksplorasi ini. -->
     <!-- Pilihan Visualisasi & Konten: 1. Perbandingan Perahu: Info laporan tentang Wairon & Mansusu diubah menjadi toggle interaktif dengan gambar. 2. Ekosistem Budaya: Info tentang Rum Sram & tokoh mitos disajikan sebagai blok teks dengan visual pendukung. 3. Tantangan: Data kualitatif diubah menjadi grafik radar sederhana menggunakan Chart.js untuk dampak visual. 4. Ajakan Bertindak: Bagian "Upaya" menampilkan daftar solusi dan tombol unduh e-book, mengubah pembaca menjadi peserta. -->
     <style>
         body {
@@ -54,7 +54,7 @@
     </nav>
 
     <!-- Bagian Utama: Pengantar -->
-    <section id="hero" class="relative overflow-hidden py-16 sm:py-24 bg-cover bg-center" style="background-image: url('<a href="https://ibb.co.com/8L9pcnQF"><img src="https://i.ibb.co.com/Xrtg8fGm/Perahu.png" alt="Perahu" border="0"></a>');">
+    <section id="hero" class="relative overflow-hidden py-16 sm:py-24 bg-cover bg-center" style="background-image: url('https://i.ibb.co.com/Xrtg8fGm/Perahu.png');">
         <div class="absolute inset-0 bg-blue-900 opacity-60"></div>
         <div class="container mx-auto px-6 relative z-10 text-white text-center">
             <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">Berlayar Bersama Leluhur</h1>
@@ -71,9 +71,10 @@
             <div id="perahu-toggle" class="flex flex-col md:flex-row items-center md:items-start space-y-8 md:space-y-0 md:space-x-8">
                 <!-- Gambar & Info Perahu -->
                 <div class="md:w-1/2 flex flex-col items-center">
-                    <img id="perahu-image" src="https://placehold.co/600x400/3A506B/FFFFFF?text=Wairon+Boat+Illustration" alt="Ilustrasi Perahu Wairon" class="rounded-lg shadow-xl mb-4 transform transition-transform duration-500 hover:scale-105">
-                    <h3 id="perahu-name" class="text-2xl font-semibold text-blue-800 mb-2">Wairon (Perahu Perang)</h3>
-                    <p id="perahu-description" class="text-center text-gray-700 max-w-lg">Wairon adalah perahu perang Biak yang gagah, digunakan untuk menyerang dan bertahan. Ukirannya yang megah dan cepatnya laju di laut menjadikannya simbol kekuatan dan keberanian.</p>
+                    <!-- Ilustrasi akan diganti oleh JavaScript -->
+                    <img id="perahu-image" src="" alt="" class="rounded-lg shadow-xl mb-4 transform transition-transform duration-500 hover:scale-105">
+                    <h3 id="perahu-name" class="text-2xl font-semibold text-blue-800 mb-2"></h3>
+                    <p id="perahu-description" class="text-center text-gray-700 max-w-lg"></p>
                 </div>
 
                 <!-- Kontrol Toggle -->
@@ -83,11 +84,11 @@
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" value="" id="perahu-switch" class="sr-only peer">
                             <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                            <span id="perahu-switch-label" class="ms-3 text-sm font-medium text-gray-900">Beralih ke Mansusu</span>
+                            <span id="perahu-switch-label" class="ms-3 text-sm font-medium text-gray-900"></span>
                         </label>
                     </div>
 
-                    <div id="wairon-details" class="transition-opacity duration-300 ease-in-out opacity-100">
+                    <div id="wairon-details" class="transition-opacity duration-300 ease-in-out">
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
                             <li>Panjang & Lebar: Relatif besar dan kokoh untuk menampung prajurit.</li>
                             <li>Bahan: Kayu khusus yang ringan namun kuat.</li>
@@ -96,7 +97,7 @@
                         </ul>
                     </div>
 
-                    <div id="mansusu-details" class="transition-opacity duration-300 ease-in-out opacity-0 hidden">
+                    <div id="mansusu-details" class="transition-opacity duration-300 ease-in-out hidden">
                         <ul class="list-disc list-inside space-y-2 text-gray-700">
                             <li>Panjang & Lebar: Lebih ramping dan kecil, ideal untuk satu orang.</li>
                             <li>Bahan: Kayu ringan untuk pergerakan cepat.</li>
@@ -117,12 +118,12 @@
                 <div class="space-y-6">
                     <p class="text-gray-700">Perahu Biak tidak dapat dipisahkan dari alam dan kepercayaan masyarakatnya. Pembuatan perahu bukan sekadar kegiatan teknis, tetapi sebuah ritual yang melibatkan doa dan komunikasi dengan alam. Setiap bagian perahu, dari lunas hingga tiang, memiliki makna spiritual.</p>
                     <p class="text-gray-700">Dalam cerita rakyat, perahu pertama konon diciptakan dari pasir pantai oleh Manarmakeri, seorang tokoh suci yang menjanjikan kehidupan baru. Ini menunjukkan betapa perahu dianggap sebagai medium suci yang menghubungkan manusia dengan alam dan leluhur. Selain itu, keterampilan berlayar juga melibatkan pengetahuan astronomi yang diwariskan turun-temurun, menjadikan pelaut Biak sebagai navigator ulung.</p>
-                    <img src="C:\Users\ASUS\OneDrive\Documents\Kerja\Laporan-Perahu-Epub\manarmakeri.png" alt="Ilustrasi Manarmakeri" class="rounded-lg shadow-lg">
+                    <img src="https://i.ibb.co.com/Ps5bDSx2/manarmakeri.png" alt="Ilustrasi Manarmakeri Tokoh Mitos" class="rounded-lg shadow-lg">
                 </div>
                 <div class="space-y-6">
                     <p class="text-gray-700">Salah satu pilar penting dalam ekosistem budaya ini adalah <strong class="text-blue-600">Rum Sram</strong>, rumah adat tempat generasi muda diajarkan berbagai seni bahari, termasuk teknik membuat perahu dan melaut. Di sinilah tradisi dan pengetahuan ditransfer dari orang tua ke anak-anak, menjaga api budaya tetap menyala.</p>
                     <p class="text-gray-700">Namun, seiring modernisasi, Rum Sram perlahan ditinggalkan. Generasi muda lebih tertarik pada teknologi modern. Hilangnya Rum Sram tidak hanya mengancam punahnya perahu, tetapi juga keseluruhan ekosistem budaya yang menopangnya. Oleh karena itu, revitalisasi Rum Sram menjadi salah satu kunci penting dalam upaya pelestarian.</p>
-                    <img src="https://placehold.co/600x400/98C1D9/FFFFFF?text=Ilustrasi+Rum+Sram" alt="Ilustrasi Rum Sram" class="rounded-lg shadow-lg">
+                    <img src="https://i.ibb.co.com/x8H7t2Ps/106097225-573280733579079-3277787978294613205-n.jpg" alt="Ilustrasi Rum Sram" class="rounded-lg shadow-lg">
                 </div>
             </div>
         </div>
@@ -196,32 +197,34 @@
             const perahuSwitchLabel = document.getElementById('perahu-switch-label');
             const waironDetails = document.getElementById('wairon-details');
             const mansusuDetails = document.getElementById('mansusu-details');
+            
+            // Set initial state
+            function setWaironState() {
+                perahuImage.src = "https://i.ibb.co.com/sdrRVq0R/wairon.png";
+                perahuImage.alt = "Ilustrasi Perahu Wairon";
+                perahuName.textContent = "Wairon (Perahu Perang)";
+                perahuDescription.textContent = "Wairon adalah perahu perang Biak yang gagah, digunakan untuk menyerang dan bertahan. Ukirannya yang megah dan cepatnya laju di laut menjadikannya simbol kekuatan dan keberanian.";
+                perahuSwitchLabel.textContent = "Beralih ke Mansusu";
+                waironDetails.classList.remove('hidden');
+                mansusuDetails.classList.add('hidden');
+            }
+
+            // Set initial state on page load
+            setWaironState();
 
             perahuSwitch.addEventListener('change', (event) => {
                 if (event.target.checked) {
-                    // Switch to Mansusu
-                    perahuImage.src = ""C:\Users\ASUS\OneDrive\Documents\Kerja\Laporan-Perahu-Epub\Manusu.png"";
+                    // Change to Mansusu
+                    perahuImage.src = "https://i.ibb.co.com/JjNck4yv/Manusu.png";
                     perahuImage.alt = "Ilustrasi Perahu Mansusu";
                     perahuName.textContent = "Mansusu (Perahu Nelayan)";
                     perahuDescription.textContent = "Mansusu adalah perahu nelayan yang ramping, digunakan untuk mencari ikan. Bentuknya yang sederhana dan ringan membuatnya ideal untuk perairan dangkal dan mobilitas tinggi.";
                     perahuSwitchLabel.textContent = "Beralih ke Wairon";
-                    waironDetails.classList.add('opacity-0', 'hidden');
-                    mansusuDetails.classList.remove('opacity-0', 'hidden');
-                    setTimeout(() => {
-                        mansusuDetails.classList.add('opacity-100');
-                    }, 10);
+                    waironDetails.classList.add('hidden');
+                    mansusuDetails.classList.remove('hidden');
                 } else {
-                    // Switch to Wairon
-                    perahuImage.src = ""C:\Users\ASUS\OneDrive\Documents\Kerja\Laporan-Perahu-Epub\wairon.png"";
-                    perahuImage.alt = "Ilustrasi Perahu Wairon";
-                    perahuName.textContent = "Wairon (Perahu Perang)";
-                    perahuDescription.textContent = "Wairon adalah perahu perang Biak yang gagah, digunakan untuk menyerang dan bertahan. Ukirannya yang megah dan cepatnya laju di laut menjadikannya simbol kekuatan dan keberanian.";
-                    perahuSwitchLabel.textContent = "Beralih ke Mansusu";
-                    mansusuDetails.classList.add('opacity-0', 'hidden');
-                    waironDetails.classList.remove('opacity-0', 'hidden');
-                    setTimeout(() => {
-                        waironDetails.classList.add('opacity-100');
-                    }, 10);
+                    // Change back to Wairon
+                    setWaironState();
                 }
             });
 
@@ -297,6 +300,3 @@
     </script>
 </body>
 </html>
-
-
-
